@@ -1,0 +1,29 @@
+# WordPress
+wp-config.php
+wp-content/uploads/
+wp-content/cache/
+wp-content/backup-db/
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+*.sublime-project
+*.sublime-workspace
+.vscode/
+.idea/
+
+# Compiled CSS (keep source SCSS only)
+*.css.map
+
+# Node modules (if using npm)
+node_modules/
+package-lock.json
+
+# Logs
+*.log
+npm-debug.log*
