@@ -329,6 +329,67 @@ img {
   gap: 0 20px;
 }
 
+.share-links {
+  margin-top: 30px;
+
+  .share-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #666;
+  }
+
+  .share-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .share-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 18px;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &.twitter {
+      background-color: #000000;
+      
+      .x-logo {
+        width: 20px;
+        height: 20px;
+        color: #ffffff;
+      }
+    }
+
+    &.facebook {
+      background-color: #1877f2;
+    }
+
+    &.hatena {
+      background-color: #00a4de;
+      font-weight: bold;
+
+      .hatena-icon {
+        font-size: 16px;
+        font-family: Verdana, sans-serif;
+      }
+    }
+
+    &.line {
+      background-color: #06c755;
+    }
+  }
+}
+
 .artwork-images {
   margin-bottom: 30px;
 }

@@ -181,6 +181,8 @@ function my_theme_settings_page() {
       update_option( 'my_theme_sns_items', array() );
     }
     
+    update_option( 'my_theme_enable_share_links', isset( $_POST['enable_share_links'] ) ? 1 : 0 );
+    
     // その他設定
     update_option( 'my_theme_ga_tracking_id', sanitize_text_field( $_POST['ga_tracking_id'] ) );
     update_option( 'my_theme_past_images_display', sanitize_text_field( $_POST['past_images_display'] ) );
@@ -205,6 +207,7 @@ function my_theme_settings_page() {
   $user_icon = get_option( 'my_theme_user_icon', 0 );
   $header_image = get_option( 'my_theme_header_image', 0 );
   $sns_items = get_option( 'my_theme_sns_items', array() );
+  $enable_share_links = get_option( 'my_theme_enable_share_links', 1 );
   $grid_columns_pc = get_option( 'my_theme_grid_columns_pc', 3 );
   $grid_columns_mobile = get_option( 'my_theme_grid_columns_mobile', 2 );
   $hide_header_on_single = get_option( 'my_theme_hide_header_on_single', 0 );
@@ -344,6 +347,17 @@ function my_theme_settings_page() {
             </div>
             <button type="button" id="add-sns-button" class="button">SNSリンクを追加</button>
           </div>
+        </div>
+      </div>
+      
+      <h2>ページ共有リンク</h2>
+      <div class="settings-section">
+        <div class="settings-row">
+          <label for="enable_share_links">
+            <input type="checkbox" id="enable_share_links" name="enable_share_links" value="1" <?php checked( $enable_share_links, 1 ); ?>>
+            単一投稿ページにSNS共有リンクを表示する
+          </label>
+          <span class="description">Twitter、Facebook、はてなブックマーク、LINEへの共有ボタンが表示されます</span>
         </div>
       </div>
       
@@ -905,8 +919,18 @@ function my_theme_add_ogp_tags() {
   
   // 説明文
   $description = $ogp_description;
-  if ( is_singular() && has_excerpt() ) {
-    $description = get_the_excerpt();
+  if ( is_singular() ) {
+    // 作品説明があれば優先
+    $artwork_description = get_post_meta( get_the_ID(), '_artwork_description', true );
+    if ( ! empty( $artwork_description ) ) {
+      $description = wp_strip_all_tags( $artwork_description );
+      // 最大200文字に制限
+      if ( mb_strlen( $description ) > 200 ) {
+        $description = mb_substr( $description, 0, 200 ) . '...';
+      }
+    } elseif ( has_excerpt() ) {
+      $description = get_the_excerpt();
+    }
   }
   
   // 画像

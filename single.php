@@ -77,6 +77,34 @@ get_header();
               endif;
               ?>
             </div>
+            
+            <?php
+            // SNS共有リンクの表示
+            $enable_share_links = get_option( 'my_theme_enable_share_links', 1 );
+            if ( $enable_share_links ) :
+              $post_url = urlencode( get_permalink() );
+              $post_title = urlencode( get_the_title() );
+              ?>
+              <div class="share-links">
+                <p class="share-title">共有</p>
+                <div class="share-buttons">
+                  <a href="https://twitter.com/intent/tweet?url=<?php echo $post_url; ?>&text=<?php echo $post_title; ?>" target="_blank" rel="noopener noreferrer" class="share-button twitter">
+                    <svg viewBox="0 0 24 24" class="x-logo" aria-hidden="true">
+                      <path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                    </svg>
+                  </a>
+                  <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $post_url; ?>" target="_blank" rel="noopener noreferrer" class="share-button facebook">
+                    <i class="fab fa-facebook-f"></i>
+                  </a>
+                  <a href="https://b.hatena.ne.jp/entry/<?php echo get_permalink(); ?>" target="_blank" rel="noopener noreferrer" class="share-button hatena">
+                    <span class="hatena-icon">B!</span>
+                  </a>
+                  <a href="https://social-plugins.line.me/lineit/share?url=<?php echo $post_url; ?>" target="_blank" rel="noopener noreferrer" class="share-button line">
+                    <i class="fab fa-line"></i>
+                  </a>
+                </div>
+              </div>
+            <?php endif; ?>
           </div>
 
           <nav class="artwork-navigation">
